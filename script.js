@@ -1,23 +1,16 @@
-/* let weather = {
-    "api_key": "7761786fe351ced2577dacabb4382e9c",
-    fetchWeather: function(city) {
-        fetch("https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=7761786fe351ced2577dacabb4382e9c")
-        .then(response => response.json())..then((data) => console.log(data));
-    }
-}
- */
 
 let weather = {
-    api_key: "7761786fe351ced2577dacabb4382e9c",
+    api_key: config.api_key, // API key
     unit: "imperial",
     unit_symbol: "°F",
     city: "",
-    searchWeather: function (city=this.city) {
+    humidity: "",
+    searchWeather: function (city = this.city) {
         if (city == "") {
             return;
         }
-        this.city=city;
-        fetch("https://api.openweathermap.org/data/2.5/weather?q="+this.city+"&appid="+this.api_key+"&units="+this.unit)
+        this.city = city;
+        fetch("https://api.openweathermap.org/data/2.5/weather?q="+this.city + "&appid=" + this.api_key + "&units=" + this.unit)
         .then(response => response.json())
         .then((data) => {
             if(data.cod == "404") {
@@ -25,11 +18,19 @@ let weather = {
             } else {
             document.querySelector('.city').innerText = data.name;
             document.querySelector('.temp-number').innerText = Math.round(data.main.temp)+this.unit_symbol;
+            document.querySelector('.humidity').innerText = "Humidity:"+data.main.humidity+"%";
+            if((data.weather.main == "Thunderstorm")|| data.weather[0].main == "Drizzle"|| data.weather[0].main == "Rain"
+            || data.weather[0].main == "Snow"|| data.weather[0].main == "Clouds"|| data.weather[0].main == "Clear"){
+                document.body.style.backgroundImage = "url('./img/"+data.weather[0].main+".jpg')";
+            }
+            if(data.weather[0].id > 700&&data.weather[0].id<800){
+                document.body.style.backgroundImage = "url('./img/mist.jpg')";
+            }
+            document.querySelector('.card').style.opacity = "0.6";
             }
         });
     }
 }
-
 
 document.querySelector('.search-bar').addEventListener('change',(e)=>{
         weather.searchWeather(e.target.value);
