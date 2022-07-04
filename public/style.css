@@ -75,11 +75,10 @@ footer {
     position:absolute;
     top:0 ;
     right:0;
-    width:100%;
     height:60px;   /* Height of the footer */
     color:#eaeaea;
     /* change link style */
-    background-color: #222;
+    background-color: rgb(1, 1, 1);
     
  }
 

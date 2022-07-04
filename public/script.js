@@ -1,6 +1,6 @@
 
 let weather = {
-    api_key: "7761786fe351ced2577dacabb4382e9c", // API key
+    api_key: key, // API key
     unit: "imperial",
     unit_symbol: "°F",
     city: "",

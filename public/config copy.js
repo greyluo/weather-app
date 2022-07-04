@@ -1,1 +1,0 @@
-var key = "7761786fe351ced2577dacabb4382e9c";
